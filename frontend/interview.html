@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Interview | InterviewAI</title>
+
+    <link rel="stylesheet"
+          href="/css/style.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="topbar">
+
+        <div class="brand">
+            <div class="brand-mark">AI</div>
+
+            <div>
+                <div class="brand-name">
+                    InterviewAI
+                </div>
+
+                <div class="brand-subtitle">
+                    Practice smarter
+                </div>
+            </div>
+        </div>
+
+
+        <div class="interview-meta">
+
+            <span class="topic-pill">
+                <span id="topic">DBMS</span>
+            </span>
+
+            <span class="difficulty-pill">
+                <span id="difficulty">
+                    Intermediate
+                </span>
+            </span>
+
+            <span class="timer-pill">
+                <span class="timer-icon">⏱</span>
+                <span id="timer">02:00</span>
+            </span>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="interview-page">
+
+
+        <!-- SESSION HEADER -->
+
+        <section class="session-header">
+
+            <div>
+
+                <p class="eyebrow">
+                    INTERVIEW SESSION
+                </p>
+
+                <h1>
+                    Show what you know.
+                </h1>
+
+                <p class="session-description">
+                    Answer naturally. Your response will be
+                    evaluated using AI.
+                </p>
+
+            </div>
+
+
+            <div class="question-progress">
+
+                <span>
+                    Question
+                    <span id="questionNumber">1</span>
+                    / 10
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= QUESTION CARD ================= -->
+
+        <section class="interview-card">
+
+            <div class="card-label">
+                INTERVIEW QUESTION
+            </div>
+
+
+            <div class="question-box">
+
+                <h2 id="question">
+                    Loading question...
+                </h2>
+
+            </div>
+
+
+            <!-- ================= ANSWER ================= -->
+
+            <div class="answer-section">
+
+                <div class="answer-header">
+
+                    <div>
+
+                        <h3>
+                            Your Answer
+                        </h3>
+
+                        <p>
+                            Type your answer or use the microphone.
+                        </p>
+
+                    </div>
+
+
+                    <div class="word-counter">
+
+                        <span id="wordCount">
+                            0
+                        </span>
+
+                        words
+
+                    </div>
+
+                </div>
+
+
+                <!-- SPEECH CONTROLS -->
+
+                <div class="speech-controls">
+
+                    <button
+                        type="button"
+                        id="micBtn"
+                        class="mic-btn">
+
+                        🎙
+                        <span>
+                            Start Speaking
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="resetSpeechBtn"
+                        class="reset-speech-btn">
+
+                        Reset
+
+                    </button>
+
+
+                    <span
+                        id="listeningStatus"
+                        class="listening-status">
+
+                        Microphone is ready
+
+                    </span>
+
+                </div>
+
+
+                <!-- ANSWER TEXTAREA -->
+
+                <textarea
+                    id="answer"
+                    class="answer-textarea"
+                    placeholder="Start typing your answer here..."
+                    rows="9"></textarea>
+
+
+                <!-- SUBMIT -->
+
+                <div class="submit-area">
+
+                    <button
+                        type="button"
+                        id="submitBtn"
+                        class="primary-btn">
+
+                        Submit Answer
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= AI ANALYSIS ================= -->
+
+        <section
+            id="result"
+            class="analysis-card hidden">
+
+            <div class="analysis-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        AI ANALYSIS
+                    </p>
+
+                    <h2 id="analysisTitle">
+                        Your Answer Analysis
+                    </h2>
+
+                </div>
+
+
+                <div class="overall-score">
+
+                    <span id="score">
+                        0
+                    </span>
+
+                    <small>
+                        / 10
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- ENCOURAGEMENT -->
+
+            <div class="encouragement-box">
+
+                <span class="encouragement-icon">
+                    ✨
+                </span>
+
+                <p id="encouragement">
+                    Keep practicing!
+                </p>
+
+            </div>
+
+
+            <!-- SCORE BREAKDOWN -->
+
+            <div class="analysis-grid">
+
+
+                <!-- CORRECTNESS -->
+
+                <div class="analysis-item">
+
+                    <div class="analysis-item-header">
+
+                        <span>
+                            Correctness
+                        </span>
+
+                        <strong>
+                            <span id="correctness">
+                                0
+                            </span>
+                            / 10
+                        </strong>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div
+                            id="correctnessBar"
+                            class="progress-fill">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- RELEVANCE -->
+
+                <div class="analysis-item">
+
+                    <div class="analysis-item-header">
+
+                        <span>
+                            Relevance
+                        </span>
+
+                        <strong>
+                            <span id="relevance">
+                                0
+                            </span>
+                            / 10
+                        </strong>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div
+                            id="relevanceBar"
+                            class="progress-fill">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- COMPLETENESS -->
+
+                <div class="analysis-item">
+
+                    <div class="analysis-item-header">
+
+                        <span>
+                            Completeness
+                        </span>
+
+                        <strong>
+                            <span id="completeness">
+                                0
+                            </span>
+                            / 10
+                        </strong>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div
+                            id="completenessBar"
+                            class="progress-fill">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CLARITY -->
+
+                <div class="analysis-item">
+
+                    <div class="analysis-item-header">
+
+                        <span>
+                            Clarity
+                        </span>
+
+                        <strong>
+                            <span id="clarity">
+                                0
+                            </span>
+                            / 10
+                        </strong>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div
+                            id="clarityBar"
+                            class="progress-fill">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FEEDBACK -->
+
+            <div class="feedback-grid">
+
+
+                <!-- STRENGTHS -->
+
+                <div class="feedback-box">
+
+                    <h3>
+                        ✓ Strengths
+                    </h3>
+
+                    <ul id="strengths">
+                    </ul>
+
+                </div>
+
+
+
+                <!-- IMPROVEMENTS -->
+
+                <div class="feedback-box">
+
+                    <h3>
+                        ↑ Improvements
+                    </h3>
+
+                    <ul id="improvements">
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- XP / COINS -->
+
+            <div class="reward-box">
+
+                <div>
+
+                    <span class="reward-label">
+                        XP Earned
+                    </span>
+
+                    <strong id="xpEarned">
+                        +0 XP
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span class="reward-label">
+                        Coins Earned
+                    </span>
+
+                    <strong id="coinsEarned">
+                        +0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- NEXT BUTTONS -->
+
+            <div class="analysis-actions">
+
+                <button
+                    type="button"
+                    id="nextQuestionBtn"
+                    class="primary-btn">
+
+                    Next Question →
+                </button>
+
+
+                <button
+                    type="button"
+                    id="dashboardBtn"
+                    class="secondary-btn">
+
+                    View Dashboard
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= COMPLETION SCREEN ================= -->
+
+        <div
+            id="completionScreen"
+            class="completion-screen hidden">
+
+            <div class="completion-icon">
+                🎉
+            </div>
+
+            <p class="eyebrow">
+                INTERVIEW COMPLETE
+            </p>
+
+            <h1>
+                Great job!
+            </h1>
+
+            <p>
+                You completed all 10 questions.
+                Check your dashboard to see your
+                performance and progress.
+            </p>
+
+            <div class="completion-actions">
+
+                <button
+                    class="primary-btn"
+                    onclick="window.location.href='dashboard.html'">
+
+                    View Dashboard
+
+                </button>
+
+
+                <button
+                    class="secondary-btn"
+                    onclick="window.location.href='index.html'">
+
+                    Start Another Interview
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="/js/interview.js"></script>
+
+</body>
+
+</html>

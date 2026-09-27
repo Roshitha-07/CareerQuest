@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account - InterviewAI</title>
+
+    <link rel="stylesheet"
+          href="/css/style.css">
+
+</head>
+
+
+<body>
+
+<div class="auth-page">
+
+    <div class="auth-wrapper">
+
+
+        <!-- LEFT SIDE -->
+
+        <div class="auth-visual">
+
+            <div class="visual-content">
+
+                <div class="brand-badge">
+                    ✨ InterviewAI
+                </div>
+
+
+                <div class="ai-illustration">
+                    🤖
+                </div>
+
+
+                <h1>
+                    Practice smarter.
+                    <br>
+                    Interview better.
+                </h1>
+
+
+                <p>
+                    Build your technical skills,
+                    practice real interview questions
+                    and improve with AI-powered feedback.
+                </p>
+
+
+                <ul class="feature-list">
+
+                    <li>
+                        <span>🎯</span>
+                        Topic-based interview practice
+                    </li>
+
+                    <li>
+                        <span>🤖</span>
+                        AI-powered answer analysis
+                    </li>
+
+                    <li>
+                        <span>🔥</span>
+                        Track your practice streak
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="auth-form">
+
+            <div class="auth-form-inner">
+
+                <h2>
+                    Create your account
+                </h2>
+
+                <p class="auth-subtitle">
+                    Start your interview preparation journey.
+                </p>
+
+
+                <!-- Name -->
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            👤
+                        </span>
+
+                        <input
+                            type="text"
+                            id="name"
+                            placeholder="Enter your name"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            ✉️
+                        </span>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter your email"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Create a password"
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword()"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="primary-btn"
+                    onclick="register()"
+                >
+                    Create Account →
+                </button>
+
+
+                <div class="trust-message">
+                    🔐 Your interview progress will be saved
+                    to your account.
+                </div>
+
+
+                <p class="auth-link">
+
+                    Already have an account?
+
+                    <a href="login.html">
+                        Login
+                    </a>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="/js/register.js"></script>
+
+
+<script>
+
+function togglePassword() {
+
+    const password =
+        document.getElementById("password");
+
+    if (password.type === "password") {
+
+        password.type = "text";
+
+    } else {
+
+        password.type = "password";
+
+    }
+
+}
+
+</script>
+
+</body>
+
+</html>

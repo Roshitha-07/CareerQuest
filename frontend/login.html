@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login - InterviewAI</title>
+
+    <link rel="stylesheet"
+          href="/css/style.css">
+
+</head>
+
+
+<body>
+
+<div class="auth-page">
+
+    <div class="auth-wrapper">
+
+
+        <!-- LEFT SIDE -->
+
+        <div class="auth-visual">
+
+            <div class="visual-content">
+
+                <div class="brand-badge">
+                    🚀 InterviewAI
+                </div>
+
+
+                <div class="ai-illustration">
+                    🧠
+                </div>
+
+
+                <h1>
+                    Welcome back.
+                    <br>
+                    Let's practice.
+                </h1>
+
+
+                <p>
+                    Continue your interview preparation,
+                    improve your answers and keep your
+                    streak alive.
+                </p>
+
+
+                <ul class="feature-list">
+
+                    <li>
+                        <span>🔥</span>
+                        Keep building your streak
+                    </li>
+
+                    <li>
+                        <span>📊</span>
+                        Track your performance
+                    </li>
+
+                    <li>
+                        <span>🏆</span>
+                        Become interview ready
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="auth-form">
+
+            <div class="auth-form-inner">
+
+                <h2>
+                    Welcome back 👋
+                </h2>
+
+                <p class="auth-subtitle">
+                    Continue your interview journey.
+                </p>
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            ✉️
+                        </span>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter your email"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password"
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword()"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="primary-btn"
+                    onclick="login()"
+                >
+                    Login →
+                </button>
+
+
+                <div class="trust-message">
+                    🔥 Your interview streak is waiting for you!
+                </div>
+
+
+                <p class="auth-link">
+
+                    Don't have an account?
+
+                    <a href="register.html">
+                        Create one
+                    </a>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="/js/login.js"></script>
+
+
+<script>
+
+function togglePassword() {
+
+    const password =
+        document.getElementById("password");
+
+    if (password.type === "password") {
+
+        password.type = "text";
+
+    } else {
+
+        password.type = "password";
+
+    }
+
+}
+
+</script>
+
+</body>
+
+</html>

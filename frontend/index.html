@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>InterviewAI - Start Practice</title>
+
+    <link rel="stylesheet"
+          href="/css/style.css">
+
+</head>
+
+
+<body>
+
+<div class="container selection-page">
+
+
+    <!-- HEADER -->
+
+    <div class="selection-header">
+
+        <div>
+
+            <div class="brand-badge">
+                ✨ InterviewAI
+            </div>
+
+            <h1>
+                Ready to level up,
+                <span id="userName">Learner</span>? 🚀
+            </h1>
+
+            <p>
+                Choose a topic and difficulty.
+                Your AI interview session starts next.
+            </p>
+
+        </div>
+
+
+        <div class="mini-stats">
+
+            <div class="mini-stat">
+
+                <span>🔥</span>
+
+                <div>
+                    <strong id="streak">0</strong>
+                    <small>Day Streak</small>
+                </div>
+
+            </div>
+
+
+            <div class="mini-stat">
+
+                <span>🪙</span>
+
+                <div>
+                    <strong id="coins">0</strong>
+                    <small>Coins</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- TOPIC SECTION -->
+
+    <div class="selection-section">
+
+        <div class="section-title">
+
+            <div>
+
+                <span class="section-number">
+                    01
+                </span>
+
+                <div>
+
+                    <h2>
+                        Choose your topic
+                    </h2>
+
+                    <p>
+                        What do you want to practice today?
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="topic-grid">
+
+
+            <div class="topic-card"
+                 data-topic="DBMS"
+                 onclick="selectTopic(this)">
+
+                <div class="topic-icon dbms">
+                    🗄️
+                </div>
+
+                <div>
+
+                    <h3>DBMS</h3>
+
+                    <p>
+                        Databases &amp; SQL concepts
+                    </p>
+
+                </div>
+
+                <span class="select-check">
+                    ✓
+                </span>
+
+            </div>
+
+
+
+            <div class="topic-card"
+                 data-topic="Java"
+                 onclick="selectTopic(this)">
+
+                <div class="topic-icon java">
+                    ☕
+                </div>
+
+                <div>
+
+                    <h3>Java</h3>
+
+                    <p>
+                        Core Java &amp; OOP
+                    </p>
+
+                </div>
+
+                <span class="select-check">
+                    ✓
+                </span>
+
+            </div>
+
+
+
+            <div class="topic-card"
+                 data-topic="DSA"
+                 onclick="selectTopic(this)">
+
+                <div class="topic-icon dsa">
+                    🧩
+                </div>
+
+                <div>
+
+                    <h3>DSA</h3>
+
+                    <p>
+                        Algorithms &amp; data structures
+                    </p>
+
+                </div>
+
+                <span class="select-check">
+                    ✓
+                </span>
+
+            </div>
+
+
+
+            <div class="topic-card"
+                 data-topic="SQL"
+                 onclick="selectTopic(this)">
+
+                <div class="topic-icon sql">
+                    🔍
+                </div>
+
+                <div>
+
+                    <h3>SQL</h3>
+
+                    <p>
+                        Queries &amp; database operations
+                    </p>
+
+                </div>
+
+                <span class="select-check">
+                    ✓
+                </span>
+
+            </div>
+
+
+
+            <div class="topic-card"
+                 data-topic="Operating Systems"
+                 onclick="selectTopic(this)">
+
+                <div class="topic-icon os">
+                    ⚙️
+                </div>
+
+                <div>
+
+                    <h3>Operating Systems</h3>
+
+                    <p>
+                        Processes, memory &amp; systems
+                    </p>
+
+                </div>
+
+                <span class="select-check">
+                    ✓
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- DIFFICULTY SECTION -->
+
+    <div class="selection-section">
+
+        <div class="section-title">
+
+            <div>
+
+                <span class="section-number">
+                    02
+                </span>
+
+                <div>
+
+                    <h2>
+                        Select difficulty
+                    </h2>
+
+                    <p>
+                        Choose the level that matches your preparation.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="difficulty-grid">
+
+
+            <div class="difficulty-card basic"
+                 data-difficulty="Basic"
+                 onclick="selectDifficulty(this)">
+
+                <div class="difficulty-icon">
+                    🌱
+                </div>
+
+                <div>
+
+                    <h3>Basic</h3>
+
+                    <p>
+                        Fundamental concepts
+                    </p>
+
+                </div>
+
+                <span class="select-check">
+                    ✓
+                </span>
+
+            </div>
+
+
+
+            <div class="difficulty-card intermediate"
+                 data-difficulty="Intermediate"
+                 onclick="selectDifficulty(this)">
+
+                <div class="difficulty-icon">
+                    ⚡
+                </div>
+
+                <div>
+
+                    <h3>Intermediate</h3>
+
+                    <p>
+                        Practical interview questions
+                    </p>
+
+                </div>
+
+                <span class="select-check">
+                    ✓
+                </span>
+
+            </div>
+
+
+
+            <div class="difficulty-card hard"
+                 data-difficulty="Hard"
+                 onclick="selectDifficulty(this)">
+
+                <div class="difficulty-icon">
+                    🔥
+                </div>
+
+                <div>
+
+                    <h3>Hard</h3>
+
+                    <p>
+                        Advanced interview challenges
+                    </p>
+
+                </div>
+
+                <span class="select-check">
+                    ✓
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- START SECTION -->
+
+    <div class="start-panel">
+
+        <div class="start-info">
+
+            <div class="start-icon">
+                🤖
+            </div>
+
+            <div>
+
+                <h3>
+                    Your AI interview is ready
+                </h3>
+
+                <p id="selectionSummary">
+                    Select a topic and difficulty to continue.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="start-interview-btn"
+            onclick="startInterview()"
+        >
+            Start AI Interview
+            <span>→</span>
+        </button>
+
+    </div>
+
+
+
+    <!-- LOGOUT -->
+
+    <div class="bottom-actions">
+
+        <button
+            class="logout-btn"
+            onclick="logout()"
+        >
+            Logout
+        </button>
+
+        <button
+            class="dashboard-link"
+            onclick="goDashboard()"
+        >
+            📊 View Dashboard
+        </button>
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+const userId =
+    localStorage.getItem("user_id");
+
+const userName =
+    localStorage.getItem("user_name");
+
+
+if (!userId) {
+
+    alert("Please login first.");
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+if (userName) {
+
+    document.getElementById("userName")
+        .innerText = userName;
+
+}
+
+
+let selectedTopic = "";
+
+let selectedDifficulty = "";
+
+
+
+function selectTopic(card) {
+
+    document
+        .querySelectorAll(".topic-card")
+        .forEach(function(item) {
+
+            item.classList.remove("selected");
+
+        });
+
+
+    card.classList.add("selected");
+
+
+    selectedTopic =
+        card.dataset.topic;
+
+
+    updateSummary();
+
+}
+
+
+
+function selectDifficulty(card) {
+
+    document
+        .querySelectorAll(".difficulty-card")
+        .forEach(function(item) {
+
+            item.classList.remove("selected");
+
+        });
+
+
+    card.classList.add("selected");
+
+
+    selectedDifficulty =
+        card.dataset.difficulty;
+
+
+    updateSummary();
+
+}
+
+
+
+function updateSummary() {
+
+    const summary =
+        document.getElementById(
+            "selectionSummary"
+        );
+
+
+    if (
+        selectedTopic &&
+        selectedDifficulty
+    ) {
+
+        summary.innerHTML =
+            `You're preparing for <strong>${selectedTopic}</strong> at <strong>${selectedDifficulty}</strong> level.`;
+
+    }
+
+    else if (selectedTopic) {
+
+        summary.innerText =
+            `${selectedTopic} selected. Now choose a difficulty.`;
+
+    }
+
+    else if (selectedDifficulty) {
+
+        summary.innerText =
+            `${selectedDifficulty} level selected. Now choose a topic.`;
+
+    }
+
+}
+
+
+
+function startInterview() {
+
+    if (!selectedTopic) {
+
+        alert(
+            "Please select a topic first."
+        );
+
+        return;
+
+    }
+
+
+    if (!selectedDifficulty) {
+
+        alert(
+            "Please select a difficulty first."
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "topic",
+        selectedTopic
+    );
+
+
+    localStorage.setItem(
+        "difficulty",
+        selectedDifficulty
+    );
+
+
+    window.location.href =
+        "preparing.html";
+
+}
+
+
+
+function logout() {
+
+    localStorage.removeItem(
+        "user_id"
+    );
+
+    localStorage.removeItem(
+        "user_name"
+    );
+
+    localStorage.removeItem(
+        "topic"
+    );
+
+    localStorage.removeItem(
+        "difficulty"
+    );
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+
+function goDashboard() {
+
+    window.location.href =
+        "dashboard.html";
+
+}
+
+</script>
+
+</body>
+
+</html>
