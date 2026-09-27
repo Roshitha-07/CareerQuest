@@ -12,7 +12,14 @@ client = Groq(
 )
 
 
-def generate_question(topic, difficulty):
+def generate_question(
+    topic,
+    difficulty,
+    previous_questions=None
+):
+
+    if previous_questions is None:
+        previous_questions = []
 
     query = f"""
     {topic} interview questions
@@ -37,10 +44,19 @@ def generate_question(topic, difficulty):
         for item in results
     )
 
+    previous_text = ""
+
+    if previous_questions:
+
+        previous_text = "\n".join(
+            f"- {question}"
+            for question in previous_questions
+        )
+
     prompt = f"""
 You are an expert technical interviewer.
 
-Generate ONE interview question.
+Generate ONE new interview question.
 
 Topic:
 {topic}
@@ -53,12 +69,21 @@ Use only the information provided in the context.
 Context:
 {context}
 
+Previously asked questions:
+{previous_text if previous_text else "None"}
+
 Requirements:
+
 - Ask exactly one interview question.
+- Match the requested topic.
 - Match the requested difficulty.
+- Use the provided context.
+- Do NOT repeat any previously asked question.
+- Do NOT create a question that is only a small rewording of a previous question.
+- Choose a different concept, angle, or subtopic when possible.
 - Do not provide the answer.
 - Do not mention the PDF.
-- Keep the question clear and suitable for a technical interview.
+- Return only the question.
 
 Return only the question.
 """
@@ -71,10 +96,20 @@ Return only the question.
                 "content": prompt
             }
         ],
-        temperature=0.3
+        temperature=0.7
     )
 
-    question = response.choices[0].message.content.strip()
+    question = (
+        response.choices[0]
+        .message.content
+        .strip()
+    )
+
+    question = (
+        question
+        .replace("```", "")
+        .strip()
+    )
 
     sources = list(
         set(

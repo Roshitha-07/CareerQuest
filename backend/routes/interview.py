@@ -26,7 +26,6 @@ def submit_answer(
             "message": "Answer cannot be empty."
         }
 
-
     user = db.query(User).filter(
         User.id == user_id
     ).first()
@@ -35,7 +34,6 @@ def submit_answer(
         return {
             "message": "User not found."
         }
-
 
     question = db.query(Question).filter(
         Question.id == question_id
@@ -46,9 +44,7 @@ def submit_answer(
             "message": "Question not found."
         }
 
-
     # Prevent duplicate submission
-
     existing = db.query(
         InterviewAttempt
     ).filter(
@@ -61,27 +57,27 @@ def submit_answer(
             "message": "This question has already been submitted."
         }
 
-
-    # AI evaluation
+    # =========================================
+    # AI EVALUATION
+    # =========================================
 
     analysis = evaluate_answer(
         question.question,
         answer.strip()
     )
 
-
     score = round(
         analysis.get("overall_score", 0)
     )
-
 
     score = max(
         0,
         min(10, score)
     )
 
-
-    # Save attempt
+    # =========================================
+    # SAVE ATTEMPT
+    # =========================================
 
     attempt = InterviewAttempt(
         user_id=user_id,
@@ -94,11 +90,11 @@ def submit_answer(
         )
     )
 
-
     db.add(attempt)
 
-
+    # =========================================
     # XP
+    # =========================================
 
     xp_earned = score * 10
 
@@ -106,8 +102,9 @@ def submit_answer(
         user.xp or 0
     ) + xp_earned
 
-
-    # Coins
+    # =========================================
+    # COINS
+    # =========================================
 
     coins_earned = 5
 
@@ -115,36 +112,51 @@ def submit_answer(
         user.coins or 0
     ) + coins_earned
 
-
     db.commit()
 
     db.refresh(attempt)
     db.refresh(user)
 
-
     return {
-
         "attempt_id": attempt.id,
 
         "score": score,
 
         "correctness":
-            analysis.get("correctness", 0),
+            analysis.get(
+                "correctness",
+                0
+            ),
 
         "relevance":
-            analysis.get("relevance", 0),
+            analysis.get(
+                "relevance",
+                0
+            ),
 
         "completeness":
-            analysis.get("completeness", 0),
+            analysis.get(
+                "completeness",
+                0
+            ),
 
         "clarity":
-            analysis.get("clarity", 0),
+            analysis.get(
+                "clarity",
+                0
+            ),
 
         "strengths":
-            analysis.get("strengths", []),
+            analysis.get(
+                "strengths",
+                []
+            ),
 
         "improvements":
-            analysis.get("improvements", []),
+            analysis.get(
+                "improvements",
+                []
+            ),
 
         "encouragement":
             analysis.get(
@@ -152,7 +164,8 @@ def submit_answer(
                 ""
             ),
 
-        "xp_earned": xp_earned,
+        "xp_earned":
+            xp_earned,
 
         "total_xp":
             user.xp,
@@ -180,7 +193,7 @@ def get_next_difficulty(
         .lower()
     )
 
-
+    # High score
     if score >= 8:
 
         if difficulty == "basic":
@@ -191,7 +204,7 @@ def get_next_difficulty(
 
         return "Hard"
 
-
+    # Medium score
     if score >= 5:
 
         if difficulty == "basic":
@@ -202,7 +215,7 @@ def get_next_difficulty(
 
         return "Hard"
 
-
+    # Low score
     if difficulty == "hard":
         return "Intermediate"
 
@@ -224,17 +237,45 @@ def next_question(
     db: Session = Depends(get_db)
 ):
 
+    # =========================================
+    # DETERMINE NEXT DIFFICULTY
+    # =========================================
+
     next_difficulty = get_next_difficulty(
         difficulty,
         previous_score
     )
 
+    # =========================================
+    # GET PREVIOUS QUESTIONS
+    # =========================================
+
+    previous_questions = (
+        db.query(Question)
+        .filter(
+            Question.topic == topic
+        )
+        .order_by(
+            Question.id.desc()
+        )
+        .limit(50)
+        .all()
+    )
+
+    previous_question_text = [
+        item.question
+        for item in previous_questions
+    ]
+
+    # =========================================
+    # GENERATE NEW QUESTION
+    # =========================================
 
     result = generate_question(
         topic,
-        next_difficulty
+        next_difficulty,
+        previous_question_text
     )
-
 
     if not result.get("question"):
 
@@ -243,6 +284,53 @@ def next_question(
                 "Unable to generate question."
         }
 
+    # =========================================
+    # BASIC DUPLICATE CHECK
+    # =========================================
+
+    generated_question = (
+        result["question"]
+        .strip()
+        .lower()
+    )
+
+    duplicate_found = False
+
+    for old_question in previous_question_text:
+
+        old_question_clean = (
+            old_question
+            .strip()
+            .lower()
+        )
+
+        if generated_question == old_question_clean:
+
+            duplicate_found = True
+            break
+
+    # =========================================
+    # REGENERATE IF EXACT DUPLICATE
+    # =========================================
+
+    if duplicate_found:
+
+        result = generate_question(
+            topic,
+            next_difficulty,
+            previous_question_text
+        )
+
+        if not result.get("question"):
+
+            return {
+                "message":
+                    "Unable to generate a unique question."
+            }
+
+    # =========================================
+    # SAVE NEW QUESTION
+    # =========================================
 
     question = Question(
         topic=topic,
@@ -251,16 +339,15 @@ def next_question(
         source="RAG"
     )
 
-
     db.add(question)
-
     db.commit()
-
     db.refresh(question)
 
+    # =========================================
+    # RETURN QUESTION
+    # =========================================
 
     return {
-
         "question_id":
             question.id,
 
@@ -277,7 +364,10 @@ def next_question(
             previous_score,
 
         "sources":
-            result.get("sources", [])
+            result.get(
+                "sources",
+                []
+            )
     }
 
 
@@ -299,23 +389,20 @@ def interview_history(
         InterviewAttempt.created_at.desc()
     ).limit(20).all()
 
-
     history = []
-
 
     for attempt in attempts:
 
         question = db.query(
             Question
         ).filter(
-            Question.id ==
-            attempt.question_id
+            Question.id == attempt.question_id
         ).first()
-
 
         history.append({
 
-            "id": attempt.id,
+            "id":
+                attempt.id,
 
             "question":
                 question.question
@@ -342,9 +429,7 @@ def interview_history(
                 str(attempt.created_at)
                 if attempt.created_at
                 else None
-
         })
-
 
     return {
         "history": history

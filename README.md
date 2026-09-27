@@ -287,6 +287,7 @@ uvicorn backend.main:app --reload
 | Streaks miscounted across non-consecutive days | Practice dates deduplicated and compared sequentially to compute current/best streak |
 | Needed spoken answers without a separate STT service | Used the browser's built-in Speech Recognition API |
 | API keys should not be hardcoded | Loaded via `.env`, excluded from Git with `.gitignore` |
+| Repeated practice sessions could resurface the same or reworded questions, reducing usefulness |Previously generated questions are pulled from MySQL and passed into the generation pipeline; the AI is instructed to avoid prior questions and simple rewordings and explore a different angle, and each new question is checked against stored questions before being saved |
 
 ---
 
